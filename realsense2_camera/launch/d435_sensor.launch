@@ -101,11 +101,8 @@
     </include>
   </group>
 
-  <!-- Loads the camera model -->
-  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find realsense2_camera)/launch/d435_camera.urdf.xacro' use_nominal_extrinsics:=false"/>
-
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
-
-
+  <node pkg="tf" type="static_transform_publisher" name="depth_cam2base"
+     args="0.2  0.0  0.2  -1.57 1.57 0.0 /base_link /camera_depth_optical_frame 50"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find realsense2_description)/rviz/urdf.rviz" required="true"/>
 
 </launch>
